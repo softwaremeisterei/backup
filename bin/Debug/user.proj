@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-16"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>1.0</Version>
+  <Sources>
+    <string>C:\Logs</string>
+    <string>C:\inetpub\wwwroot</string>
+  </Sources>
+  <Destination>H:\Backups</Destination>
+  <Command>ROBOCOPY.EXE /E {SOURCE} {DESTINATION}</Command>
+</Project>
