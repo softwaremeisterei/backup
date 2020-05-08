@@ -8,4 +8,5 @@ Create ZIP archives of all source folders
       
       ignore files in compliance with .gitignore (if present)
 
-![ScreenShot](https://github.com/softwaremeisterei/backup/blob/master/screenshot.png?raw=true)
+![ScreenShot1](https://github.com/softwaremeisterei/backup/blob/master/screenshot.png?raw=true)
+![ScreenShot2](https://github.com/softwaremeisterei/backup/blob/master/screenshot2.png?raw=true)
