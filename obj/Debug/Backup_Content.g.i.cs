@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/app-icon.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("screenshot.png")]
 
 
