@@ -11,7 +11,7 @@ Allows to ignore files in compliance with .gitignore (if present)
 
 ***What it does***
 
-For each of the ***selected*** source folders a zip archive (with *optimal* compression level) will be created in the destination folder.
+For each of the ***selected*** source folders a zip archive (applying *optimal* compression level) will be created in the destination folder.
 
 The archive name will get tagged by a date suffix (e.g. foo-20200508.zip).
 
