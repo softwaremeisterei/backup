@@ -1,12 +1,16 @@
 ﻿## BACKUP - Developers Backup Utility (C# / WPF) 
 
-Create ZIP archives of all source folders
+***Main usecase***
 
-***Options***
+- Add source folders
+- Set options
+- Choose the destination folder
+- Start the backup
 
-- Comply to .gitignore
+For each ***selected*** source folders a zip archive will be created in the destination folder.
+The source folder list remains persistent over sessions.
       
-      ignore files in compliance with .gitignore (if present)
+      ***comply to .gitignore:*** ignore files in compliance with .gitignore (if present)
 
 ![ScreenShot1](https://github.com/softwaremeisterei/backup/blob/master/screenshot.png?raw=true)
 ![ScreenShot2](https://github.com/softwaremeisterei/backup/blob/master/screenshot2.png?raw=true)
