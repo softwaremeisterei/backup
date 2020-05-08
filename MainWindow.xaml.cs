@@ -89,7 +89,7 @@ namespace Backup
 
             // TODO: Let user choose btw Fastest and Optimal compression level
             Task.Run(() => backupService.Backup(
-                CompressionLevel.Fastest,
+                CompressionLevel.Optimal,
                 sources.ToArray(),
                 Project.Destination,
                 Project.ComplyToGitIgnore,
