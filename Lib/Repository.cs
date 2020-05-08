@@ -1,6 +1,5 @@
 ﻿using Backup.Models;
 using Softwaremeisterei.Lib;
-using System;
 using System.IO;
 using System.Reflection;
 using System.Text;

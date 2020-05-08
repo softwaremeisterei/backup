@@ -75,9 +75,11 @@ namespace Backup
 
         private void BackupButton_Click(object sender, RoutedEventArgs e)
         {
-            backupStart = DateTime.Now;
             this.IsEnabled = false;
+            backupStart = DateTime.Now;
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            var selectedSources = SourcesView.SelectedItems.Cast<string>().ToArray();
+            SetStatusText2("");
 
             bool isCancellationRequested() => this.IsClosing;
             void onCompleted() => Dispatcher.Invoke(() =>
@@ -86,9 +88,8 @@ namespace Backup
                 this.IsEnabled = true;
                 Mouse.OverrideCursor = null;
                 SetStatusText2((backupEnd - backupStart).ToString("G"));
+                StatusLabel1.Content = "Completed.";
             });
-
-            var selectedSources = SourcesView.SelectedItems.Cast<string>().ToArray();
 
             // TODO: Let user choose btw Fastest and Optimal compression level
             Task.Run(() => backupService.Backup(

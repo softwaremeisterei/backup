@@ -21,6 +21,7 @@ namespace Softwaremeisterei.Lib
             if (string.IsNullOrEmpty(srcDirectory)) throw new ArgumentNullException("sourceDirectoryName");
             if (string.IsNullOrEmpty(destArchiveFile)) throw new ArgumentNullException("destinationArchiveFileName");
 
+            NotifyStatus($"read directory {srcDirectory} ...");
             var filesToAdd = Directory.GetFiles(srcDirectory, "*", SearchOption.AllDirectories);
             var entryNames = CreateEntryNames(filesToAdd, srcDirectory, includeBaseDirectory);
 
@@ -34,16 +35,17 @@ namespace Softwaremeisterei.Lib
                         {
                             break;
                         }
-                        
+
                         var progressPercent = i * 100 / filesToAdd.Length;
                         var fileToAdd = filesToAdd[i];
 
                         if (excludedFilesPredicate != null && excludedFilesPredicate(fileToAdd))
                         {
+                            NotifyStatus($"[{progressPercent}%] ignore {fileToAdd}");
                             continue;
                         }
 
-                        NotifyStatus($"[{progressPercent}%] adding {fileToAdd}");
+                        NotifyStatus($"[{progressPercent}%] compress {fileToAdd}");
                         archive.CreateEntryFromFile(fileToAdd, entryNames[i], compressionLevel);
                     }
                 }
