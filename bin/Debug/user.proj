@@ -2,9 +2,12 @@
 <Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>1.0</Version>
   <Sources>
-    <string>C:\Logs</string>
-    <string>C:\inetpub\wwwroot</string>
+    <string>E:\Dev\Launch</string>
+    <string>E:\Dev\GPilot</string>
+    <string>E:\Dev\Vision</string>
+    <string>E:\Dev\Watch</string>
+    <string>E:\Dev\Backup</string>
   </Sources>
-  <Destination>H:\Backups</Destination>
-  <Command>ROBOCOPY.EXE /E {SOURCE} {DESTINATION}</Command>
+  <Destination>I:\</Destination>
+  <ComplyToGitIgnore>true</ComplyToGitIgnore>
 </Project>
