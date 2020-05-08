@@ -15,7 +15,7 @@ For each of the ***selected*** source folders a zip archive (applying *optimal* 
 
 The archive name will get tagged by a date suffix (e.g. foo-20200508.zip).
 
-In case anarchive of the same date already exists, another name will be chosen for the archive by appending a sequential number to the filename (e.g. foo-20200508-(1).zip)
+In case an archive of the same name already exists, another name will be chosen for the archive by appending a sequential number (e.g. foo-20200508-(1).zip)
 
 The source folder list, options and destination folder remain persistent over sessions.
       
