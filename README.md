@@ -6,6 +6,6 @@ Create ZIP archives of all source folders
 
 - Comply to .gitignore
       
-      ignore files n compliance with .gitignore (if present)
+      ignore files in compliance with .gitignore (if present)
 
 ![ScreenShot](https://github.com/softwaremeisterei/backup/blob/master/screenshot.png?raw=true)
