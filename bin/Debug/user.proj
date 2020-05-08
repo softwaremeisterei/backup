@@ -7,6 +7,11 @@
     <string>E:\Dev\Vision</string>
     <string>E:\Dev\Watch</string>
     <string>E:\Dev\Backup</string>
+    <string>E:\Dev\Bookmark</string>
+    <string>E:\Dev\Fx</string>
+    <string>E:\Dev\PennyCheck</string>
+    <string>E:\Dev\Softwaremeisterei</string>
+    <string>E:\Dev\sys4</string>
   </Sources>
   <Destination>I:\</Destination>
   <ComplyToGitIgnore>true</ComplyToGitIgnore>

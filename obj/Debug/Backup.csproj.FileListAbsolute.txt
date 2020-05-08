@@ -13,3 +13,5 @@ E:\Dev\Backup\obj\Debug\Backup.csproj.GenerateResource.cache
 E:\Dev\Backup\obj\Debug\Backup.csproj.CoreCompileInputs.cache
 E:\Dev\Backup\obj\Debug\Backup.exe
 E:\Dev\Backup\obj\Debug\Backup.pdb
+E:\Dev\Backup\bin\Debug\DotNet.Glob.dll
+E:\Dev\Backup\obj\Debug\Backup.csproj.CopyComplete

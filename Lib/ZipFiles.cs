@@ -37,13 +37,13 @@ namespace Softwaremeisterei.Lib
                         
                         var progressPercent = i * 100 / filesToAdd.Length;
                         var fileToAdd = filesToAdd[i];
-                        NotifyStatus($"[{progressPercent}%] {fileToAdd}");
 
                         if (excludedFilesPredicate != null && excludedFilesPredicate(fileToAdd))
                         {
                             continue;
                         }
 
+                        NotifyStatus($"[{progressPercent}%] adding {fileToAdd}");
                         archive.CreateEntryFromFile(fileToAdd, entryNames[i], compressionLevel);
                     }
                 }

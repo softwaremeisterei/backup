@@ -22,6 +22,9 @@ namespace Backup
         readonly BackupService backupService;
         readonly SortableBindingList<string> sources;
 
+        DateTime backupStart;
+        DateTime backupEnd;
+
         public Project Project { get; set; }
 
         public bool IsClosing { get; private set; }
@@ -71,23 +74,28 @@ namespace Backup
 
         private void BackupButton_Click(object sender, RoutedEventArgs e)
         {
+            backupStart = DateTime.Now;
             this.IsEnabled = false;
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
             bool isCancellationRequested() => this.IsClosing;
             void onCompleted() => Dispatcher.Invoke(() =>
             {
+                backupEnd = DateTime.Now;
                 this.IsEnabled = true;
                 Mouse.OverrideCursor = null;
+                SetStatusText2((backupEnd - backupStart).ToString("G"));
             });
 
+            // TODO: Let user choose btw Fastest and Optimal compression level
             Task.Run(() => backupService.Backup(
+                CompressionLevel.Fastest,
                 sources.ToArray(),
                 Project.Destination,
                 Project.ComplyToGitIgnore,
                 isCancellationRequested,
                 onCompleted,
-                (statusMessage) => SetStatusText(statusMessage)));
+                (statusMessage) => SetStatusText1(statusMessage)));
         }
 
         private void ChooseDestionationFolder_Click(object sender, RoutedEventArgs e)
@@ -128,9 +136,14 @@ namespace Backup
             }
         }
 
-        private void SetStatusText(string message)
+        private void SetStatusText1(string message)
         {
             Dispatcher.Invoke(() => StatusLabel1.Content = message);
+        }
+
+        private void SetStatusText2(string message)
+        {
+            Dispatcher.Invoke(() => StatusLabel2.Content = message);
         }
     }
 }

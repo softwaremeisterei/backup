@@ -38,6 +38,9 @@
     <ApplicationIcon>app-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNet.Glob, Version=3.0.9.0, Culture=neutral, PublicKeyToken=b68cc888b4f632d1, processorArchitecture=MSIL">
+      <HintPath>packages\DotNet.Glob.3.0.9\lib\net46\DotNet.Glob.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression" />
@@ -71,7 +74,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\BackupService.cs" />
-    <Compile Include="Lib\GlobMatches.cs" />
     <Compile Include="Lib\Paths.cs" />
     <Compile Include="Lib\Repository.cs" />
     <Compile Include="Lib\Serialization.cs" />
@@ -102,6 +104,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

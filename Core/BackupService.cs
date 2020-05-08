@@ -1,4 +1,5 @@
-﻿using Softwaremeisterei.Lib;
+﻿using DotNet.Globbing;
+using Softwaremeisterei.Lib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,10 +13,11 @@ namespace Backup.Core
     public class BackupService
     {
         public void Backup(
-            string[] sources, 
+            CompressionLevel compressionLevel,
+            string[] sources,
             string destination,
             bool complyToGitIgnore,
-            Func<bool> isCancellationRequested, 
+            Func<bool> isCancellationRequested,
             Action onCompleted,
             Action<string> onStatusChanged)
         {
@@ -36,7 +38,12 @@ namespace Backup.Core
                     var excludedFilesPredicate = complyToGitIgnore ? CreateExcludePredicateFromGitignore(source) : (_) => false;
                     var zip = new ZipFiles();
                     zip.StatusEvent += (_, ev) => onStatusChanged(ev.StatusMessage);
-                    zip.Create(CompressionLevel.Optimal, source, destZipfile, isCancellationRequested, true, excludedFilesPredicate);
+                    zip.Create(compressionLevel,
+                        source,
+                        destZipfile,
+                        isCancellationRequested,
+                        true,
+                        excludedFilesPredicate);
                 }
             }
             finally
@@ -52,7 +59,7 @@ namespace Backup.Core
             {
                 var patterns = File.ReadAllLines(gitIgnoreFile)
                     .Select(line => line.Trim().ToLower())
-                    .Where(line => !line.StartsWith("#"))
+                    .Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
                     .ToArray();
                 return (filepath) => IsGitignored(filepath, patterns);
             }
@@ -62,22 +69,36 @@ namespace Backup.Core
             }
         }
 
+        static Dictionary<string, Glob> globDictionary = new Dictionary<string, Glob>();
+
         private bool IsGitignored(string filepath, string[] patterns)
         {
             var isIgnored = false;
 
-            foreach (var pattern in patterns)
+            foreach (var pattern0 in patterns)
             {
-                if (pattern.StartsWith("!")) // negative ignore pattern => if matched => do _not_ ignore
+                Glob glob;
+                var pattern = pattern0.Replace("/", "\\");
+                pattern = string.Concat("**\\", pattern.TrimStart('\\'), "**");
+
+                bool isNegation = pattern.StartsWith("!");
+
+                if (isNegation)
                 {
-                    if (GlobMatches.GitIgnoreGlobMatch(filepath, pattern.Substring(1)))
-                    {
-                        isIgnored = false;
-                    }
+                    pattern = pattern.Substring(1);
                 }
-                else if (GlobMatches.GitIgnoreGlobMatch(filepath, pattern))
+
+                if (!globDictionary.TryGetValue(pattern, out glob))
                 {
-                    isIgnored = true;
+                    glob = Glob.Parse(pattern);
+                    globDictionary.Add(pattern, glob);
+                }
+
+                var isMatch = glob.IsMatch(filepath);
+
+                if (isMatch)
+                {
+                    isIgnored = !isNegation;
                 }
             }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Backup"
         mc:Ignorable="d"
-        Title="Backup" Height="329.126" Width="419.903" Loaded="Window_Loaded" Closing="Window_Closing"
+        Title="Backup" Height="488.459" Width="419.903" Loaded="Window_Loaded" Closing="Window_Closing"
         WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">
@@ -21,12 +21,15 @@
             <StatusBarItem>
                 <Label Name="StatusLabel1" FontSize="10"></Label>
             </StatusBarItem>
+            <StatusBarItem>
+                <Label Name="StatusLabel2" FontSize="10" Foreground="Gray"></Label>
+            </StatusBarItem>
         </StatusBar>
         <DockPanel>
             <Label DockPanel.Dock="Top">Sources</Label>
             <StackPanel DockPanel.Dock="Bottom">
                 <Label DockPanel.Dock="Left">Options</Label>
-                <CheckBox IsChecked="{Binding Project.GitIgnore, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Comply to .gitignore</CheckBox>
+                <CheckBox IsChecked="{Binding Project.ComplyToGitIgnore, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">Comply to .gitignore</CheckBox>
                 <Label DockPanel.Dock="Left">Destination</Label>
                 <DockPanel>
                     <Button DockPanel.Dock="Right" Margin="3" Click="ChooseDestionationFolder_Click">...</Button>
