@@ -1,7 +1,6 @@
 ﻿## BACKUP - Developers Backup Utility (C# / WPF) 
 
-***comply to .gitignore:***
-      ignore files in compliance with .gitignore (if present)
+Allows to ignore files in compliance with .gitignore (if present)
 
 ***Main usecase***
 
