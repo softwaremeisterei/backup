@@ -45,6 +45,7 @@ namespace Backup
         {
             Title = string.Concat(Title, " V", Project.Version);
             SourcesView.ItemsSource = sources;
+            SourcesView.SelectAll();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -87,10 +88,12 @@ namespace Backup
                 SetStatusText2((backupEnd - backupStart).ToString("G"));
             });
 
+            var selectedSources = SourcesView.SelectedItems.Cast<string>().ToArray();
+
             // TODO: Let user choose btw Fastest and Optimal compression level
             Task.Run(() => backupService.Backup(
                 CompressionLevel.Optimal,
-                sources.ToArray(),
+                selectedSources,
                 Project.Destination,
                 Project.ComplyToGitIgnore,
                 isCancellationRequested,

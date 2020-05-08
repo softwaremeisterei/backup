@@ -20,6 +20,7 @@
     <string>E:\Dev\Vision</string>
     <string>E:\Dev\Watch</string>
     <string>E:\Dev\Android\Tabula</string>
+    <string>E:\Work</string>
   </Sources>
   <Destination>I:\</Destination>
   <ComplyToGitIgnore>true</ComplyToGitIgnore>

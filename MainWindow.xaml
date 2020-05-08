@@ -42,6 +42,7 @@
                 <Button Padding="3" Click="RemoveSourceDirectory_Click" Margin="3">Remove</Button>
             </StackPanel>
             <ListView Name="SourcesView" AllowDrop="True"
+                      SelectionMode="Extended"
                       DragOver="SourcesView_DragOver" Drop="SourcesView_Drop">
             </ListView>
         </DockPanel>
