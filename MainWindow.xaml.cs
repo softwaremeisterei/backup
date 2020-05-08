@@ -1,14 +1,15 @@
-﻿using Backup.Models;
+﻿using Backup.Core;
+using Backup.Models;
 using Poetica.BL.Storage;
 using Softwaremeisterei.Lib;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace Backup
 {
@@ -18,17 +19,23 @@ namespace Backup
     public partial class MainWindow : Window
     {
         readonly Repository repo;
+        readonly BackupService backupService;
         readonly SortableBindingList<string> sources;
 
         public Project Project { get; set; }
+
+        public bool IsClosing { get; private set; }
+
 
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
             repo = new Repository();
+            backupService = new BackupService();
             Project = repo.Load();
             sources = new SortableBindingList<string>(Project.Sources);
+            StatusLabel1.Content = "Ready.";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -39,6 +46,8 @@ namespace Backup
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            this.IsClosing = true;
+
             repo.Save(Project);
         }
 
@@ -62,64 +71,23 @@ namespace Backup
 
         private void BackupButton_Click(object sender, RoutedEventArgs e)
         {
-            using (new WaitCursor())
+            this.IsEnabled = false;
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+            bool isCancellationRequested() => this.IsClosing;
+            void onCompleted() => Dispatcher.Invoke(() =>
             {
-                foreach (var source in sources)
-                {
-                    var destFile = Path.Combine(Project.Destination, Path.GetFileName(source));
+                this.IsEnabled = true;
+                Mouse.OverrideCursor = null;
+            });
 
-                    for (var iter = 0; ; iter++)
-                    {
-                        var destZipfile = string.Concat(destFile, DateTime.Now.ToString("-yyyyMMdd"), iter == 0 ? "" : $"-({iter})", ".zip");
-
-                        if (!File.Exists(destZipfile))
-                        {
-                            Predicate<string> exclude = Project.ComplyToGitIgnore ? CreateExcludePredicateByGitignore(source) : (_) => false;
-                            ZipFiles.Create(source, destZipfile, CompressionLevel.Optimal, true, exclude);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        private Predicate<string> CreateExcludePredicateByGitignore(string srcDirectory)
-        {
-            var gitIgnoreFile = Path.Combine(srcDirectory, ".gitignore");
-            if (File.Exists(gitIgnoreFile))
-            {
-                var patterns = File.ReadAllLines(gitIgnoreFile)
-                    .Select(line => line.Trim().ToLower())
-                    .Where(line => !line.StartsWith("#"))
-                    .ToArray();
-                return (filepath) => IsGitignored(filepath, patterns);
-            }
-            else
-            {
-                return (_) => false;
-            }
-        }
-
-        private bool IsGitignored(string filepath, string[] patterns)
-        {
-            bool isIgnored = false;
-
-            foreach (var pattern in patterns)
-            {
-                if (pattern.StartsWith("!")) // negative pattern => if matched => dismiss previous ignores
-                {
-                    if (GlobMatches.GitIgnoreGlobMatch(filepath, pattern.Substring(1)))
-                    {
-                        isIgnored = false;
-                    }
-                }
-                else if (GlobMatches.GitIgnoreGlobMatch(filepath, pattern))
-                {
-                    isIgnored = true;
-                }
-            }
-
-            return isIgnored;
+            Task.Run(() => backupService.Backup(
+                sources.ToArray(),
+                Project.Destination,
+                Project.ComplyToGitIgnore,
+                isCancellationRequested,
+                onCompleted,
+                (statusMessage) => SetStatusText(statusMessage)));
         }
 
         private void ChooseDestionationFolder_Click(object sender, RoutedEventArgs e)
@@ -158,6 +126,11 @@ namespace Backup
                     }
                 }
             }
+        }
+
+        private void SetStatusText(string message)
+        {
+            Dispatcher.Invoke(() => StatusLabel1.Content = message);
         }
     }
 }

@@ -70,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Core\BackupService.cs" />
     <Compile Include="Lib\GlobMatches.cs" />
     <Compile Include="Lib\Paths.cs" />
     <Compile Include="Lib\Repository.cs" />

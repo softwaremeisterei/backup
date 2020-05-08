@@ -1,18 +1,22 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Threading;
 
 namespace Softwaremeisterei.Lib
 {
-    public static class ZipFiles
+    public class ZipFiles
     {
-        public static void Create(
+        public delegate void StatusEventHandler(object sender, StatusEventArgs e);
+        public event StatusEventHandler StatusEvent;
+
+        public void Create(
+            CompressionLevel compressionLevel,
             string srcDirectory,
             string destArchiveFile,
-            CompressionLevel compressionLevel,
+            Func<bool> isCancellationRequested,
             bool includeBaseDirectory = true,
-            Predicate<string> exclude = null,
-            Predicate<string> include = null)
+            Predicate<string> excludedFilesPredicate = null)
         {
             if (string.IsNullOrEmpty(srcDirectory)) throw new ArgumentNullException("sourceDirectoryName");
             if (string.IsNullOrEmpty(destArchiveFile)) throw new ArgumentNullException("destinationArchiveFileName");
@@ -24,18 +28,35 @@ namespace Softwaremeisterei.Lib
             {
                 using (var archive = new ZipArchive(zipFileStream, ZipArchiveMode.Create))
                 {
-                    for (int i = 0; i < filesToAdd.Length; i++)
+                    for (var i = 0; i < filesToAdd.Length; i++)
                     {
+                        if (isCancellationRequested())
+                        {
+                            break;
+                        }
+                        
+                        var progressPercent = i * 100 / filesToAdd.Length;
                         var fileToAdd = filesToAdd[i];
-                        if (exclude != null && exclude(fileToAdd)) continue;
-                        if (include != null && !include(fileToAdd)) continue;
+                        NotifyStatus($"[{progressPercent}%] {fileToAdd}");
+
+                        if (excludedFilesPredicate != null && excludedFilesPredicate(fileToAdd))
+                        {
+                            continue;
+                        }
+
                         archive.CreateEntryFromFile(fileToAdd, entryNames[i], compressionLevel);
                     }
                 }
             }
         }
 
-        private static string[] CreateEntryNames(string[] names, string srcDirectory, bool includeBaseName)
+        private void NotifyStatus(string message)
+        {
+            StatusEvent?.Invoke(this, new StatusEventArgs(message));
+            Thread.Sleep(0);
+        }
+
+        private string[] CreateEntryNames(string[] names, string srcDirectory, bool includeBaseName)
         {
             if (names == null || names.Length == 0) return new string[0];
 
@@ -63,5 +84,11 @@ namespace Softwaremeisterei.Lib
             return result;
         }
 
+    }
+
+    public class StatusEventArgs
+    {
+        public StatusEventArgs(string message) { StatusMessage = message; }
+        public String StatusMessage { get; } // readonly
     }
 }

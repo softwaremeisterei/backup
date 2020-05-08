@@ -17,6 +17,11 @@
                 <Button Name="BackupButton" Padding="10" Click="BackupButton_Click" Margin="3">Start Backup</Button>
             </StackPanel>
         </Grid>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <Label Name="StatusLabel1" FontSize="10"></Label>
+            </StatusBarItem>
+        </StatusBar>
         <DockPanel>
             <Label DockPanel.Dock="Top">Sources</Label>
             <StackPanel DockPanel.Dock="Bottom">
