@@ -2,7 +2,7 @@
 
 Create ZIP archives of all source folders
 
-#Options
+***Options***
 
 - Comply to .gitignore
       
