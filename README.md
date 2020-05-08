@@ -9,8 +9,17 @@ Allows to ignore files in compliance with .gitignore (if present)
 - Choose the destination folder
 - Start the backup
 
+***What it does***
+
 For each of the ***selected*** source folders a zip archive (with *optimal* compression level) will be created in the destination folder.
-The source folder list, options and destination folder remains persistent over sessions.
+
+The archive name will get tagged by a date suffix (e.g. foo-20200508.zip).
+
+In case anarchive of the same date already exists, another name will be chosen for the archive by appending a sequential number to the filename (e.g. foo-20200508-(1).zip)
+
+The source folder list, options and destination folder remain persistent over sessions.
       
+***Screenshots***
+
 ![ScreenShot1](https://github.com/softwaremeisterei/backup/blob/master/screenshot.png?raw=true)
 ![ScreenShot2](https://github.com/softwaremeisterei/backup/blob/master/screenshot2.png?raw=true)
