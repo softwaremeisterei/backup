@@ -11,7 +11,7 @@ Allows to ignore files in compliance with .gitignore (if present)
 
 For each of the ***selected*** source folders a zip archive (with *optimal* compression level) will be created in the destination folder.
 
-The source folder list remains persistent over sessions.
+The source folder list, options and destination folder remains persistent over sessions.
       
 ![ScreenShot1](https://github.com/softwaremeisterei/backup/blob/master/screenshot.png?raw=true)
 ![ScreenShot2](https://github.com/softwaremeisterei/backup/blob/master/screenshot2.png?raw=true)
