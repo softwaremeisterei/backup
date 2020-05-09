@@ -14,3 +14,4 @@ E:\Dev\Backup\obj\Debug\Backup.exe
 E:\Dev\Backup\obj\Debug\Backup.pdb
 E:\Dev\Backup\bin\Debug\DotNet.Glob.dll
 E:\Dev\Backup\obj\Debug\Backup.csproj.CopyComplete
+E:\Dev\Backup\obj\Debug\Backup.csprojAssemblyReference.cache

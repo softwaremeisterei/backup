@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-16"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Version>1.0</Version>
   <Sources>
@@ -21,6 +21,11 @@
     <string>E:\Dev\Watch</string>
     <string>E:\Dev\Android\Tabula</string>
     <string>E:\Work</string>
+    <string>E:\Business</string>
+    <string>E:\Finanzen</string>
+    <string>E:\Recordings</string>
+    <string>E:\Reisen</string>
+    <string>E:\Schach</string>
   </Sources>
   <Destination>I:\</Destination>
   <ComplyToGitIgnore>true</ComplyToGitIgnore>

@@ -52,10 +52,14 @@ namespace Backup.Core
 
         private Predicate<string> CreateExcludePredicateFromGitignore(string srcDirectory)
         {
-            var gitIgnoreFile = Path.Combine(srcDirectory, ".gitignore");
-            if (File.Exists(gitIgnoreFile))
+            var ignoreFile = Path.Combine(srcDirectory, ".gitignore");
+            if (!File.Exists(ignoreFile))
             {
-                var patterns = File.ReadAllLines(gitIgnoreFile)
+                ignoreFile = Path.Combine(srcDirectory, ".bakignore");
+            }
+            if (File.Exists(ignoreFile))
+            {
+                var patterns = File.ReadAllLines(ignoreFile)
                     .Select(line => line.Trim().ToLower())
                     .Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
                     .ToArray();
