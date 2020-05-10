@@ -8,7 +8,7 @@ namespace Poetica.BL.Storage
 {
     public class Repository
     {
-        private const string ProjectFileName = "user.proj";
+        private const string ProjectFileName = "user.bkproj";
 
         private readonly string BrojectFilePath;
 

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>1.0</Version>
+  <Sources>
+    <string>E:\Dev\Android\Tabula</string>
+    <string>E:\Dev\Backup</string>
+    <string>E:\Dev\Bookmark</string>
+    <string>E:\Dev\Fx</string>
+    <string>E:\Dev\GPilot</string>
+    <string>E:\Dev\Launch</string>
+    <string>E:\Dev\MultiCopy</string>
+    <string>E:\Dev\ParentalControl</string>
+    <string>E:\Dev\PennyCheck</string>
+    <string>E:\Dev\Poetica</string>
+    <string>E:\Dev\Poker</string>
+    <string>E:\Dev\Softwaremeisterei</string>
+    <string>E:\Dev\Spider</string>
+    <string>E:\Dev\Tail</string>
+    <string>E:\Dev\Vision</string>
+    <string>E:\Dev\Watch</string>
+    <string>E:\Dev\sys4</string>
+    <string>E:\Dev\timestamp</string>
+    <string>E:\Business</string>
+    <string>E:\Dokumente</string>
+    <string>E:\Finanzen</string>
+    <string>E:\Recordings</string>
+    <string>E:\Reisen</string>
+    <string>E:\Schach</string>
+    <string>E:\Work</string>
+  </Sources>
+  <Destination>H:\Dev</Destination>
+  <ComplyToGitIgnore>true</ComplyToGitIgnore>
+</Project>
